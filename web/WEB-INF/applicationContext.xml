@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <beans:bean id="customAuthListener" class="server.auth.CustomAuthListener"/>
+    <context:annotation-config/>
+
+    <context:component-scan base-package="server.service"/>
+
+
+    <http auto-config="true">
+        <csrf disabled="true"/>
+        <intercept-url pattern="/gwtspringsecurityproject/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/gwt/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/**/*.html" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/**" access="isAuthenticated()" />
+        <logout logout-url="/logout"
+                delete-cookies="JSESSIONID"
+                logout-success-url="/login"/>
+    </http>
+
+    <!--<beans:bean id="customAuthenticationProvider" class="server.auth.CustomAuthenticationProvider" />-->
+
+    <beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <beans:property name="userDetailsService" ref="userService"/>
+        <!--<beans:property name="saltSource" ref="saltSource"/>
+        <beans:property name="passwordEncoder" ref="passwordEncoder"/>-->
+    </beans:bean>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="daoAuthenticationProvider"/>
+    </authentication-manager>
+
+</beans:beans>

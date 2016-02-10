@@ -7,13 +7,14 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <beans:bean id="customAuthListener" class="server.auth.CustomAuthListener"/>
+   <!-- <beans:bean id="customAuthListener" class="server.auth.CustomAuthListener"/>-->
     <context:annotation-config/>
 
     <context:component-scan base-package="server.service"/>
 
 
-    <http auto-config="true">
+
+    <!--<http auto-config="true">
         <csrf disabled="true"/>
         <intercept-url pattern="/gwtspringsecurityproject/**" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/gwt/**" access="hasRole('ROLE_USER')"/>
@@ -22,7 +23,25 @@
         <logout logout-url="/logout"
                 delete-cookies="JSESSIONID"
                 logout-success-url="/login"/>
-    </http>
+    </http>-->
+
+    <!--<http auto-config='true'>
+        <csrf disabled="true"/>
+        <intercept-url pattern="/login.html" access="isAnonymous()" />
+        <intercept-url pattern="/resources/favicon.ico" access="isAnonymous()" />
+        <intercept-url pattern="/**" access="isAuthenticated()" />
+        <logout logout-success-url="/login.html" />
+        <form-login login-page="/login.html"
+                    login-processing-url="/j_spring_security_check.action"
+                    default-target-url="/GwtSpringSecurityProject.html"
+                    always-use-default-target="true" />
+        <session-management invalid-session-url="/login.html"
+                            session-authentication-error-url="/login.html"
+                            session-fixation-protection="newSession">
+            <concurrency-control max-sessions="1"
+                                 error-if-maximum-exceeded="false" />
+        </session-management>
+    </http>-->
 
     <!--<beans:bean id="customAuthenticationProvider" class="server.auth.CustomAuthenticationProvider" />-->
 

@@ -1,5 +1,6 @@
 package client;
 
+import client.login.LoginViewImpl;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
@@ -30,11 +31,32 @@ public class GwtSpringSecurityProject implements EntryPoint {
 	private final AuthServiceAsync authService = GWT
 			.create(AuthService.class);
 
+    private final AuthRPCServiceAsync loginService = GWT
+            .create(AuthRPCService.class);
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		final MessageBind messageBind=new MessageBind();
+        final MessageBind messageBind=new MessageBind();
+
+        final LoginViewImpl loginView = new LoginViewImpl();
+        loginService.authentifiacate(loginView.getUserInputBox().getText(), loginView.getPassInputBox().getText(),
+                new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                messageBind.setName(caught.toString());
+            }
+
+            @Override
+            public void onSuccess(Void result) {
+                messageBind.setName("You are logged in");
+            }
+        });
+
+
+
+
+
         /*authService.retrieveUsername(
                 new AsyncCallback<String>() {
                     public void onFailure(Throwable caught) {

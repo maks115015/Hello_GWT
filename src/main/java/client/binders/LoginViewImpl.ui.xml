@@ -1,0 +1,43 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:gwt='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with type="client.binders.StyleResources" field="res"/>
+
+    <gwt:FormPanel ui:field="loginForm">
+        <gwt:HTMLPanel>
+            <div align="center">
+                <table>
+                    <tr>
+                        <td>
+                            <label for="username" >Пользователь</label>
+                        </td>
+                        <td>
+                            <gwt:TextBox ui:field="useName" name="username" styleName="{res.style.box}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="password" >Пароль</label>
+                        </td>
+                        <td>
+                            <gwt:PasswordTextBox ui:field="password" name="password"
+                                                     styleName="{res.style.box}" />
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <gwt:Button ui:field="buttonSubmit" text="Войти" styleName="{res.style.loginButton}" />
+                            <gwt:Label ui:field="completionLabel1"
+                                       styleName="{res.style.redText}" />
+                            <gwt:Label ui:field="completionLabel2"
+                                       styleName="{res.style.redText}" />
+                        </td>
+
+                     </tr>
+                </table>
+            </div>
+        </gwt:HTMLPanel>
+    </gwt:FormPanel>
+</ui:UiBinder>

@@ -1,11 +1,11 @@
-package client.login;
+package client.binders;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 
 /**
- * Created by Nick on 06.11.2015.
+ * Created by maks(avto12@i.ua) on 21.02.2016.
  */
-public interface LoginResources extends ClientBundle  {
+public interface StyleResources extends ClientBundle  {
     /**
      * Sample CssResource.
      */
@@ -21,7 +21,7 @@ public interface LoginResources extends ClientBundle  {
         String background();
     }
 
-    @Source("Login.css")
+    @Source("UiStyles.css")
     MyCss style();
 
 }

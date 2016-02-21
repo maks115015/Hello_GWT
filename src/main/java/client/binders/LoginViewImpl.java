@@ -1,5 +1,8 @@
-package client.login;
+package client.binders;
 
+import client.AuthService;
+import client.AuthServiceAsync;
+import client.MainPlace;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -10,33 +13,37 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 public class LoginViewImpl extends Composite implements LoginView {
     private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
 
-    /*
-    * @UiTemplate is not mandatory but allows multiple XML templates
-    * to be used for the same widget.
-    * Default file loaded will be <class-name>.ui.xml
-    */
+
     @UiTemplate("LoginViewImpl.ui.xml")
     interface LoginUiBinder extends UiBinder<Widget, LoginViewImpl> {
     }
 
     @UiField(provided = true)
-    final LoginResources res;
+    final StyleResources res;
+
+    private final AuthServiceAsync authService = GWT
+            .create(AuthService.class);
+
 
     public LoginViewImpl() {
-        this.res = GWT.create(LoginResources.class);
+        this.res = GWT.create(StyleResources.class);
         res.style().ensureInjected();
         initWidget(uiBinder.createAndBindUi(this));
     }
 
+
     @UiField
-    TextBox loginBox;
+    FormPanel loginForm;
     @UiField
-    TextBox passwordBox;
+    TextBox password;
+    @UiField
+    TextBox useName;
     @UiField
     Label completionLabel1;
     @UiField
@@ -44,45 +51,69 @@ public class LoginViewImpl extends Composite implements LoginView {
     @UiField
     Button buttonSubmit;
 
+    private Presenter presenter;
+
     private Boolean tooShort = false;
 
-    /*
-    * Method name is not relevant, the binding is done according to the class
-    * of the parameter.
-    */
+
+
+    @Override
+    public void setPresenter(Presenter presenter) {
+        this.presenter = presenter;
+    }
+
     @UiHandler("buttonSubmit")
     void doClickSubmit(ClickEvent event) {
         if (tooShort) {
-            Window.alert("LoginViewImpl or Password is too short!");
+            Window.alert("Login or Password is too short!");
         } else {
-           Window.alert("Submit!");
+            loginForm.setMethod("POST");
+            loginForm.setAction("/j_spring_security_check.action");
+            loginForm.submit();
+            loginForm.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
+                @Override
+                public void onSubmitComplete(FormPanel.SubmitCompleteEvent event) {
+                    authService.authentificated(new AsyncCallback<Boolean>() {
+                        @Override
+                        public void onFailure(Throwable caught) {
+                            completionLabel1.setText("System Error");
+                        }
+
+                        @Override
+                        public void onSuccess(Boolean result) {
+                            if (result) presenter.goTo(new MainPlace());
+                            else completionLabel1.setText("Неправильные учетные данные");
+                        }
+                    });
+                }
+            });
         }
     }
 
-    @UiHandler("loginBox")
+    @UiHandler("useName")
     void handleLoginChange(ValueChangeEvent<String> event) {
         if (event.getValue().length() < 2) {
-            completionLabel1.setText("LoginViewImpl too short (Size must be > 2)");
+            completionLabel1.setText("Login too short (Size must be > 2)");
             tooShort = true;
         } else {
             tooShort = false;
             completionLabel1.setText("");
         }
     }
-    @UiHandler("loginBox" )
+    @UiHandler("useName")
     void handleLoginKeyboardKey(KeyDownEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
             Window.alert("Sumbit by Enter!");
         }
     }
-    @UiHandler("passwordBox" )
+    @UiHandler("password")
     void handlePasswordKeyboardKey(KeyDownEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
             Window.alert("Sumbit by Enter!");
         }
     }
 
-    @UiHandler("passwordBox")
+    @UiHandler("password")
     void handlePasswordChange(ValueChangeEvent<String> event) {
         if (event.getValue().length() < 2) {
             tooShort = true;
@@ -93,17 +124,4 @@ public class LoginViewImpl extends Composite implements LoginView {
         }
     }
 
-    @Override
-    public HasText getUserInputBox() {
-        return loginBox;
-    }
-
-    @Override
-    public HasText getPassInputBox() {
-        return passwordBox;
-    }
-
-    public Label getCompletionLabel1() {
-        return completionLabel1;
-    }
 }

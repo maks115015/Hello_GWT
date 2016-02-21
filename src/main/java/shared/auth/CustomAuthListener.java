@@ -1,4 +1,4 @@
-package server.auth;
+package shared.auth;
 
 
 import org.springframework.context.ApplicationListener;

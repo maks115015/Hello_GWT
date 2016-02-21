@@ -1,4 +1,4 @@
-package server.auth;
+package shared.auth;
 
 /*public class CustomUserAuthentication implements Authentication {
 	

@@ -4,55 +4,54 @@
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:security="http://www.springframework.org/schema/security"
+             xmlns:p="http://www.springframework.org/schema/mvc" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
-   <!-- <beans:bean id="customAuthListener" class="server.auth.CustomAuthListener"/>-->
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
     <context:annotation-config/>
 
     <context:component-scan base-package="server.service"/>
 
-
-
-    <!--<http auto-config="true">
+    <http auto-config='true'>
         <csrf disabled="true"/>
-        <intercept-url pattern="/gwtspringsecurityproject/**" access="hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/gwt/**" access="hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/**/*.html" access="hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/**" access="isAuthenticated()" />
-        <logout logout-url="/logout"
-                delete-cookies="JSESSIONID"
-                logout-success-url="/login"/>
-    </http>-->
+        <!--<intercept-url pattern="/GwtSpringSecurityProject.html" access="permitAll" />-->
+        <intercept-url pattern="/resources/logo.png" access="permitAll" />
+        <intercept-url pattern="/img/logo.png" access="permitAll" />
+        <intercept-url pattern="GwtSpringSecurityProject.html" access="hasRole('ROLE_USER')"/>
 
-    <!--<http auto-config='true'>
-        <csrf disabled="true"/>
-        <intercept-url pattern="/login.html" access="isAnonymous()" />
-        <intercept-url pattern="/resources/favicon.ico" access="isAnonymous()" />
-        <intercept-url pattern="/**" access="isAuthenticated()" />
-        <logout logout-success-url="/login.html" />
-        <form-login login-page="/login.html"
+
+        <form-login login-page="/"
+                    authentication-failure-url="/GwtSpringSecurityProject.html?login_error=1"
                     login-processing-url="/j_spring_security_check.action"
                     default-target-url="/GwtSpringSecurityProject.html"
                     always-use-default-target="true" />
-        <session-management invalid-session-url="/login.html"
-                            session-authentication-error-url="/login.html"
+        <logout logout-url="/logout"
+                delete-cookies="JSESSIONID"
+                logout-success-url="/GwtSpringSecurityProject.html"/>
+        <session-management invalid-session-url="/GwtSpringSecurityProject.html"
+                            session-authentication-error-url="/GwtSpringSecurityProject.html"
                             session-fixation-protection="newSession">
             <concurrency-control max-sessions="1"
                                  error-if-maximum-exceeded="false" />
         </session-management>
-    </http>-->
+    </http>
 
-    <!--<beans:bean id="customAuthenticationProvider" class="server.auth.CustomAuthenticationProvider" />-->
 
     <beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
         <beans:property name="userDetailsService" ref="userService"/>
-        <!--<beans:property name="saltSource" ref="saltSource"/>
-        <beans:property name="passwordEncoder" ref="passwordEncoder"/>-->
     </beans:bean>
 
-    <authentication-manager alias="authenticationManager">
-        <authentication-provider ref="daoAuthenticationProvider"/>
-    </authentication-manager>
+    <authentication-manager>
+    <authentication-provider user-service-ref="userService">
+        <password-encoder hash="md5">
+            <salt-source system-wide="salt"/>
+        </password-encoder>
+    </authentication-provider>
+</authentication-manager>
+
+    <global-method-security pre-post-annotations="disabled" secured-annotations="enabled" jsr250-annotations="enabled"/>
+
+    <beans:bean name="authSevice" class="server.AuthServiceImpl"/>
+
 
 </beans:beans>

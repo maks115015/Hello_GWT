@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <beans:bean id="urlMappingGWT" class="org.gwtwidgets.server.spring.GWTHandler">
+    <beans:property name="mappings">
+        <beans:map>
+            <beans:entry key="/auth" value-ref="authSevice"/>
+        </beans:map>
+    </beans:property>
+    </beans:bean>
+
+</beans:beans>

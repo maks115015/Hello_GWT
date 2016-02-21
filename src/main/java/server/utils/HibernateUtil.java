@@ -1,4 +1,4 @@
-package server.service;
+package server.utils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

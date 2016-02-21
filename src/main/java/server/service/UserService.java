@@ -1,17 +1,20 @@
 package server.service;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import server.entity.User;
+import server.utils.HibernateUtil;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.Collection;
+import javax.persistence.NoResultException;
+import java.util.*;
 
 /**
  * Created by maks(avto12@i.ua) on 06.02.2016.
@@ -19,20 +22,23 @@ import java.util.Collection;
 @Service("userService")
 public class UserService implements UserDetailsService {
 
+    static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     EntityManager manager = HibernateUtil.getEm();
 
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User u =  (User)manager.createQuery("SELECT u FROM User u  WHERE u.name=?1").setParameter(1, username).getSingleResult();
-        ArrayList<GrantedAuthority> authorities=new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+    public UserDetails loadUserByUsername(String login) throws NoResultException {
+        logger.warn("Username in userService layer is: {}", login);
+        final User u =  (User)manager.createQuery("SELECT u FROM User u  WHERE u.login=?1").setParameter(1, login).getSingleResult();
+        logger.warn("User from BD is: {}", u.toString());
         if (u == null) {
-            throw new UsernameNotFoundException("User " + username + " is not found");
+            throw new UsernameNotFoundException("User " + login + " is not found");
         }
         return new UserDetails() {
             @Override
             public Collection<GrantedAuthority> getAuthorities() {
-                return authorities;
+                return AuthorityUtils.createAuthorityList("ROLE_USER");
             }
 
             @Override

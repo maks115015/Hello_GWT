@@ -13,11 +13,12 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private int id;
-    private String name;
+    private String login;
     private String password;
+    private String name;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -26,24 +27,41 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name")
     public String getName() {
         return name;
+    }
+
+    @Column(name = "login")
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "password", nullable = false, length = 50)
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User(int id, String login, String password, String name) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+    }
+
+    public User() {
     }
 
     @Override

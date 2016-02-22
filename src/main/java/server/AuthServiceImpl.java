@@ -18,7 +18,7 @@ import java.time.LocalTime;
 public class AuthServiceImpl extends RemoteServiceServlet implements AuthService {
 
 	static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
-    TimeUtil timeUtil=new TimeUtilImpl();
+    TimeUtil timeUtil=TimeUtilImpl.getInstance();
 
     @Override
     @Secured("ROLE_USER")

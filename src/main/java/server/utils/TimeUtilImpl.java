@@ -6,6 +6,16 @@ import java.time.LocalTime;
  * Created by maks(avto12@i.ua) on 11.02.2016.
  */
 public class TimeUtilImpl implements TimeUtil {
+
+    private static final TimeUtilImpl instance = new TimeUtilImpl();
+
+    private TimeUtilImpl(){}
+
+    public static TimeUtilImpl getInstance(){
+        return instance;
+    }
+
+
     public String getPartOfDay(LocalTime currentTime){
         String partOfDay="";
         if (currentTime.getHour() >= 23 || currentTime.getHour() < 6)

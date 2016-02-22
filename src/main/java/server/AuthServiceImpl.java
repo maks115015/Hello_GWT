@@ -11,7 +11,9 @@ import server.utils.TimeUtil;
 import server.utils.TimeUtilImpl;
 
 import java.time.LocalTime;
-
+/**
+ * Created by maks(avto12@i.ua) on 16.02.2016.
+ */
 @SuppressWarnings("serial")
 public class AuthServiceImpl extends RemoteServiceServlet implements AuthService {
 

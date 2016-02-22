@@ -3,7 +3,7 @@ package client;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * The async counterpart of <code>AuthService</code>.
+ * Created by maks(avto12@i.ua) on 16.02.2016.
  */
 public interface AuthServiceAsync {
 	void retrieveUsername(AsyncCallback<String> callback);

@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 
 
 /**
- * Entry point classes define <code>onModuleLoad()</code>.
+ * Created by maks(avto12@i.ua) on 16.02.2016.
  */
 public class GwtSpringSecurityProject implements EntryPoint {
 	/**

@@ -14,10 +14,7 @@
 
     <http auto-config='true'>
         <csrf disabled="true"/>
-        <!--<intercept-url pattern="/GwtSpringSecurityProject.html" access="permitAll" />-->
-        <intercept-url pattern="/resources/logo.png" access="permitAll" />
         <intercept-url pattern="/img/logo.png" access="permitAll" />
-        <intercept-url pattern="GwtSpringSecurityProject.html" access="hasRole('ROLE_USER')"/>
 
 
         <form-login login-page="/"

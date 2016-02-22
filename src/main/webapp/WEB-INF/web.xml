@@ -33,18 +33,6 @@
         <url-pattern>/gwtspringsecurityproject/rpc/*</url-pattern>
     </servlet-mapping>
 
-    <!--<servlet>
-        <servlet-name>authServlet</servlet-name>
-        <servlet-class>server.AuthServiceImpl</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>authServlet</servlet-name>
-        <url-pattern>/gwtspringsecurityproject/auth</url-pattern>
-    </servlet-mapping>-->
-
-
-
     <!-- Default page to serve -->
     <welcome-file-list>
         <welcome-file>GwtSpringSecurityProject.html</welcome-file>

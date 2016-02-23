@@ -11,6 +11,7 @@
     <context:annotation-config/>
 
     <context:component-scan base-package="server.service"/>
+    <beans:bean name="authSevice" class="server.AuthServiceImpl"/>
 
     <http auto-config='true'>
         <csrf disabled="true"/>
@@ -48,7 +49,7 @@
 
     <global-method-security pre-post-annotations="disabled" secured-annotations="enabled" jsr250-annotations="enabled"/>
 
-    <beans:bean name="authSevice" class="server.AuthServiceImpl"/>
+
 
 
 </beans:beans>

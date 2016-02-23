@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
  */
 public class HibernateUtil {
 
-    private static final String PERSISTENT_UNIT_NAME = "jpa";
+    private static final String PERSISTENT_UNIT_NAME = "userService";
 
     private static final EntityManagerFactory emf;
 

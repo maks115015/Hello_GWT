@@ -1,4 +1,4 @@
 language: java
-script: mvn clean tomcat:deploy
+script: mvn clean compile
 jdk:
  - oraclejdk8

@@ -150,7 +150,7 @@
                 <configuration>
                     <url>http://localhost:8080/gwthello</url>
                     <server>tomcat</server>
-                    <path>/eventbusapp</path>
+                    <path>/gwtsprinsecurityproject</path>
                 </configuration>
             </plugin>
         </plugins>

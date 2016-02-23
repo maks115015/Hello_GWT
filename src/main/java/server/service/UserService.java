@@ -29,9 +29,9 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws NoResultException {
-        logger.warn("Username in userService layer is: {}", login);
+        logger.info("Username in userService layer is: {}", login);
         final User u =  (User)manager.createQuery("SELECT u FROM User u  WHERE u.login=?1").setParameter(1, login).getSingleResult();
-        logger.warn("User from BD is: {}", u.toString());
+        logger.info("User from BD is: {}", u.toString());
         if (u == null) {
             throw new UsernameNotFoundException("User " + login + " is not found");
         }

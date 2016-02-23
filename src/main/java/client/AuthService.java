@@ -10,8 +10,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface AuthService extends RemoteService {
 	String retrievePartOfDay();
 
-	String retrieveAuthorities();
-
 	boolean authentificated();
 
 	String retrieveUsername();

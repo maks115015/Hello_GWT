@@ -26,12 +26,6 @@ public class AuthServiceImpl extends RemoteServiceServlet implements AuthService
         return timeUtil.getPartOfDay(LocalTime.now());
     }
 
-    @Override
-    public String retrieveAuthorities() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getAuthorities().toString();
-    }
-
 	@Override
 	public boolean authentificated() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -46,7 +40,7 @@ public class AuthServiceImpl extends RemoteServiceServlet implements AuthService
     @Secured("ROLE_USER")
 	public String retrieveUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        logger.warn("authentificated user is : {}", authentication.getName());
+        logger.info("authentificated user is : {}", authentication.getName());
         if (authentication.getName().equals("anonymousUser")) {
             return "Not logged in";
         } else {

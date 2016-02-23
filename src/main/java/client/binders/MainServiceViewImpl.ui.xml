@@ -10,7 +10,7 @@
             <gwt:Label text="" ui:field="userName" styleName="{res.style.messageLabels}"/>
 
 
-            <gwt:Anchor ui:field="logout" text="Выйти из системы" href="/logout"
+            <gwt:Anchor ui:field="logout" text="Выйти из системы" href="/hellogwt/logout"
                         styleName="{res.style.logoutAnchor}"></gwt:Anchor>
         </gwt:HTMLPanel>
 </ui:UiBinder>

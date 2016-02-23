@@ -1,4 +1,4 @@
 language: java
-script: mvn clean tomcat7:run-war
+script: mvn clean tomcat7:run-war tomcat7:shutdown
 jdk:
  - oraclejdk8

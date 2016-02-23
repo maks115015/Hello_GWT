@@ -68,7 +68,7 @@ public class LoginViewImpl extends Composite implements LoginView {
             Window.alert("Login or Password is too short!");
         } else {
             loginForm.setMethod("POST");
-            loginForm.setAction("/j_spring_security_check.action");
+            loginForm.setAction("/hellogwt/j_spring_security_check.action");
             loginForm.submit();
             loginForm.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
                 @Override

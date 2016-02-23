@@ -8,8 +8,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface AuthServiceAsync {
 	void retrieveUsername(AsyncCallback<String> callback);
 
-	void retrieveAuthorities(AsyncCallback<String> async);
-
 	void authentificated(AsyncCallback<Boolean> async);
 
 	void retrievePartOfDay(AsyncCallback<String> async);

@@ -1,10 +1,9 @@
 language: java
-script: mvn clean tomcat:deploy
+script: mvn clean tomcat7:run-war
 before_install:
  - sudo apt-cache search tomcat
 before_script:
  - sudo apt-get install tomcat7 -admin
  - sudo apt-get install tomcat7
- - sudo /etc/init.d/tomcat7 start
 jdk:
  - oraclejdk8

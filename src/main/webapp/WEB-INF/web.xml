@@ -3,11 +3,9 @@
 		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_8.xsd"
 		 id="WebApp_ID" version="2.5">
 
-
-
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/META-INF/applicationContext.xml</param-value>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
 
     <listener>
@@ -36,12 +34,35 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AuthService</servlet-name>
-        <url-pattern>/gwtspringsecurityproject/rpc/*</url-pattern>
+        <url-pattern>/hellogwt/rpc/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>gwt-log-remote-logger-servlet</servlet-name>
+        <servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServlet</servlet-class>
+        <init-param>
+            <!-- This value assumes a GWT compile with '-deploy war/WEB-INF/deploy/' -->
+            <param-name>symbolMapsFileSystem</param-name>
+            <!--
+               Modify the param-value based on your server environment. Some web servers
+               use your `war` directory as the 'current working dir', while other
+               vendors will do something different. You may use trial and error. Specify the
+               relative path you think should work, then check the server log after forwarding
+               the first client log message to the server. If the directory cannot be found,
+               gwt-log will report the full path which it tried.
+             -->
+            <param-value>WEB-INF/deploy/hellogwt/symbolMaps/</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>gwt-log-remote-logger-servlet</servlet-name>
+        <url-pattern>/hellogwt/gwt-log</url-pattern>
     </servlet-mapping>
 
     <!-- Default page to serve -->
     <welcome-file-list>
-        <welcome-file>GwtSpringSecurityProject.html</welcome-file>
+        <welcome-file>HelloGWT.html</welcome-file>
     </welcome-file-list>
 
 </web-app>

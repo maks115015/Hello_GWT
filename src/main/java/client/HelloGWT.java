@@ -1,5 +1,6 @@
 package client;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.EntryPoint;
@@ -15,37 +16,24 @@ import com.google.gwt.user.client.ui.SimplePanel;
 /**
  * Created by maks(avto12@i.ua) on 16.02.2016.
  */
-public class GwtSpringSecurityProject implements EntryPoint {
-	/**
-	 * The message displayed to the user when the server cannot be reached or
-	 * returns an error.
-	 */
-	private static final String SERVER_ERROR = "An error occurred while "
-			+ "attempting to contact the server. Please check your network "
-			+ "connection and try again.";
-
-	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
-	 */
+public class HelloGWT implements EntryPoint {
 
     private Place defaultPlace = new HelloPlace();
     private SimplePanel appWidget = new SimplePanel();
-	
-	private final AuthServiceAsync authService = GWT
-			.create(AuthService.class);
-
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 
+        Log.setUncaughtExceptionHandler();
+
         ClientFactory clientFactory = GWT.create(ClientFactory.class);
         EventBus eventBus = clientFactory.getEventBus();
         PlaceController placeController = clientFactory.getPlaceController();
 
         // Start ActivityManager for the main widget with our ActivityMapper
-        ActivityMapper activityMapper = new AppActivityMapper(clientFactory,authService);
+        ActivityMapper activityMapper = new AppActivityMapper(clientFactory);
         ActivityManager activityManager = new ActivityManager(activityMapper, eventBus);
         activityManager.setDisplay(appWidget);
 

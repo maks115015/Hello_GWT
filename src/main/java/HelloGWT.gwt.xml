@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.6.2//EN"
         "http://google-web-toolkit.googlecode.com/svn/tags/1.6.2/distro-source/core/src/gwt-module.dtd">
-<module rename-to='gwtspringsecurityproject'>
+<module rename-to='hellogwt'>
     <inherits name='com.google.gwt.user.User'/>
     <inherits name='com.google.gwt.user.theme.standard.Standard'/>
       <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
@@ -11,15 +11,17 @@
     <inherits name="com.google.gwt.place.Place"/>
     <inherits name="com.google.gwt.activity.Activity"/>
     <inherits name="com.google.gwt.logging.Logging" />
+    <inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
+    <inherits name="com.allen_sauer.gwt.log.gwt-log-RemoteLogger" />
+    <!--You'll probably want to disable the default `DivLogger` as well:-->
+    <!--<set-property name="log_DivLogger" value="DISABLED" />-->
     <set-configuration-property name="locale.useragent" value="Y"/>
     <extend-property name="locale" values="en"/>
     <extend-property name="locale" values="ru"/>
-    <entry-point class='client.GwtSpringSecurityProject'/>
+    <entry-point class='client.HelloGWT'/>
     <replace-with class="client.ClientFactoryImpl">
         <when-type-is class="client.ClientFactory"/>
     </replace-with>
-    <set-property name="gwt.logging.logLevel" value="INFO" />
-
 
     <source path='client'/>
     <source path='shared'/>

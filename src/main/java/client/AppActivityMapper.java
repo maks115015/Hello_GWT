@@ -1,5 +1,6 @@
 package client;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
@@ -9,21 +10,15 @@ import com.google.gwt.place.shared.Place;
  */
 public class AppActivityMapper implements ActivityMapper{
     private ClientFactory clientFactory;
-    private final AuthServiceAsync authService;
-    private boolean auth;
 
-    public void setAuth(boolean auth) {
-        this.auth = auth;
-    }
-
-    public AppActivityMapper(ClientFactory clientFactory,AuthServiceAsync authService) {
+    public AppActivityMapper(ClientFactory clientFactory) {
         super();
         this.clientFactory = clientFactory;
-        this.authService=authService;
     }
 
     @Override
     public Activity getActivity(Place place) {
+        Log.info("you go to "+place.toString());
         if (place instanceof HelloPlace)
             return new HelloActivity(clientFactory);
         else if (place instanceof MainPlace){

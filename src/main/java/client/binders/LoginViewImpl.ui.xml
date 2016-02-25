@@ -12,7 +12,7 @@
                             <label for="username" >Пользователь</label>
                         </td>
                         <td>
-                            <gwt:TextBox ui:field="useName" name="username" styleName="{res.style.box}" />
+                            <gwt:TextBox ui:field="userName" name="username" styleName="{res.style.box}" />
                         </td>
                     </tr>
                     <tr>

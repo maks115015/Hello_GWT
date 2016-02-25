@@ -16,18 +16,16 @@
     <http auto-config='true'>
         <csrf disabled="true"/>
         <intercept-url pattern="/img/logo.png" access="permitAll" />
-
-
         <form-login login-page="/"
-                    authentication-failure-url="/GwtSpringSecurityProject.html?login_error=1"
+                    authentication-failure-url="/HelloGWT.html?login_error=1"
                     login-processing-url="/j_spring_security_check.action"
-                    default-target-url="/GwtSpringSecurityProject.html"
+                    default-target-url="/HelloGWT.html"
                     always-use-default-target="true" />
         <logout logout-url="/logout"
                 delete-cookies="JSESSIONID"
-                logout-success-url="/GwtSpringSecurityProject.html"/>
-        <session-management invalid-session-url="/GwtSpringSecurityProject.html"
-                            session-authentication-error-url="/GwtSpringSecurityProject.html"
+                logout-success-url="/HelloGWT.html"/>
+        <session-management invalid-session-url="/HelloGWT.html"
+                            session-authentication-error-url="/HelloGWT.html"
                             session-fixation-protection="newSession">
             <concurrency-control max-sessions="1"
                                  error-if-maximum-exceeded="false" />
@@ -40,12 +38,12 @@
     </beans:bean>
 
     <authentication-manager>
-    <authentication-provider user-service-ref="userService">
-        <password-encoder hash="md5">
-            <salt-source system-wide="salt"/>
-        </password-encoder>
-    </authentication-provider>
-</authentication-manager>
+        <authentication-provider user-service-ref="userService">
+            <password-encoder hash="md5">
+                <salt-source system-wide="salt"/>
+            </password-encoder>
+        </authentication-provider>
+    </authentication-manager>
 
     <global-method-security pre-post-annotations="disabled" secured-annotations="enabled" jsr250-annotations="enabled"/>
 

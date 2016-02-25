@@ -42,6 +42,12 @@
         <artifactId>gwt-elemental</artifactId>
         <version>${gwtVersion}</version>
     </dependency>
+        <dependency>
+            <groupId>com.allen-sauer.gwt.log</groupId>
+            <artifactId>gwt-log</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+
 
         <dependency>
             <groupId>javax.annotation</groupId>
@@ -148,12 +154,11 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.0-beta-1</version>
                 <configuration>
-                    <url>http://localhost:8080/gwthello</url>
+                    <url>http://localhost:8080/</url>
                     <server>tomcat</server>
-                    <path>/hellogwt</path>
+                    <path>/</path>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

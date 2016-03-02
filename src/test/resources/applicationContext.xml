@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:security="http://www.springframework.org/schema/security"
+             xmlns:p="http://www.springframework.org/schema/mvc" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+    <context:annotation-config/>
+
+    <context:component-scan base-package="server.service"/>
+    <beans:bean name="authSevice" class="server.AuthServiceImpl"/>
+
+    <http auto-config='true'>
+        <csrf disabled="true"/>
+        <intercept-url pattern="/img/logo.png" access="permitAll" />
+        <form-login login-page="/"
+                    authentication-failure-url="/HelloGWT.html?login_error=1"
+                    login-processing-url="/j_spring_security_check.action"
+                    default-target-url="/HelloGWT.html"
+                    always-use-default-target="true" />
+        <logout logout-url="/logout"
+                delete-cookies="JSESSIONID"
+                logout-success-url="/HelloGWT.html"/>
+        <session-management invalid-session-url="/HelloGWT.html"
+                            session-authentication-error-url="/HelloGWT.html"
+                            session-fixation-protection="newSession">
+            <concurrency-control max-sessions="1"
+                                 error-if-maximum-exceeded="false" />
+        </session-management>
+    </http>
+
+
+    <beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <beans:property name="userDetailsService" ref="userService"/>
+    </beans:bean>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userService">
+            <password-encoder hash="md5">
+                <salt-source system-wide="salt"/>
+            </password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+    <global-method-security pre-post-annotations="disabled" secured-annotations="enabled" jsr250-annotations="enabled"/>
+
+
+
+
+</beans:beans>

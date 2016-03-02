@@ -14,8 +14,15 @@
     <properties>
         <gwtVersion>2.7.0</gwtVersion>
         <maven-surefire-plugin.version>2.10</maven-surefire-plugin.version>
+        <gwt.test.utils.version>0.47</gwt.test.utils.version>
 
     </properties>
+    <repositories>
+        <repository>
+            <id>my-local-repo</id>
+            <url>file://${basedir}/lib</url>
+        </repository>
+    </repositories>
     <dependencies>
     <dependency>
         <groupId>com.google.gwt</groupId>
@@ -69,6 +76,17 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.0.2.Final</version>
         </dependency>
+       <!-- <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>-->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
@@ -102,12 +120,66 @@
             <version>2.3.2</version>
         </dependency>
 
+        <!--testing-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.0.43-beta</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--https://github.com/gwt-test-utils/gwt-test-utils
+        this version is compatible with GWT 2.7, but not released-->
+        <dependency>
+            <artifactId>gwt-test-utils</artifactId>
+            <groupId>gwt-test-utils</groupId>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/gwt-test-utils-0.49-SNAPSHOT.jar</systemPath>
+            <version>0.49</version>
+        </dependency>
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert-core</artifactId>
+            <version>2.0M10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-util</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.15.0-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.paranamer</groupId>
+            <artifactId>paranamer</artifactId>
+            <version>2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils-core</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.javaparser</groupId>
+            <artifactId>javaparser</artifactId>
+            <version>1.0.11</version>
+        </dependency>
+
         <!--logging-->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -128,6 +200,22 @@
     </dependencies>
 
     <build>
+        <!--<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>-->
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/client/**</include>
+                    <include>**/shared/**</include>
+                    <include>**/*.gwt.xml</include>
+                    <include>**/public/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -135,6 +223,7 @@
                 <version>${gwtVersion}</version>
                 <configuration>
                     <draftCompile>true</draftCompile>
+                    <runTarget>HelloGWT.html</runTarget>
                 </configuration>
                 <executions>
                     <execution>
